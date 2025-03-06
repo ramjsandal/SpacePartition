@@ -314,7 +314,7 @@ public class SpacePartition
 
     }
 
-    void MergeTrees()
+    public void MergeTrees()
     {
         // merges our subpartitions such that each one that has traversible
         // cells is traversible to its traversible sibling neighbors
@@ -363,7 +363,7 @@ public class SpacePartition
 
         foreach (var leaf in ourLeaves)
         {
-            var min = otherLeaves.OrderByDescending(a => a.Distance(leaf)).First();
+            var min = otherLeaves.OrderByDescending(a => a.Distance(leaf)).Last();
             if (min.Distance(leaf) < minDist)
             {
                 minDist = min.Distance(leaf);
