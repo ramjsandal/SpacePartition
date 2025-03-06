@@ -7,13 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpacePartition", "SpacePart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpacePartition.Tests", "SpacePartition.Tests\SpacePartition.Tests.csproj", "{A69145E0-D62D-46FE-B679-23E51D195181}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpacePartitionVisualization", "SpacePartitionVisualization\SpacePartitionVisualization.csproj", "{867BD0A0-C0A2-4BA6-8AF4-FDBD1D0029D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1AE824C6-7A4D-43A9-8DE1-AC1E963ACA31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -24,5 +23,12 @@ Global
 		{A69145E0-D62D-46FE-B679-23E51D195181}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A69145E0-D62D-46FE-B679-23E51D195181}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A69145E0-D62D-46FE-B679-23E51D195181}.Release|Any CPU.Build.0 = Release|Any CPU
+		{867BD0A0-C0A2-4BA6-8AF4-FDBD1D0029D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{867BD0A0-C0A2-4BA6-8AF4-FDBD1D0029D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{867BD0A0-C0A2-4BA6-8AF4-FDBD1D0029D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{867BD0A0-C0A2-4BA6-8AF4-FDBD1D0029D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
