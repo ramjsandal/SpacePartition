@@ -349,13 +349,13 @@ public class UnitTest1
         Assert.True(sp.partitions[SpacePartition.Quadrant.TOPLEFT].partitions[SpacePartition.Quadrant.TOPLEFT].traversible);
         Assert.True(sp.partitions[SpacePartition.Quadrant.TOPLEFT].partitions[SpacePartition.Quadrant.TOPRIGHT].traversible);
         Assert.True(sp.partitions[SpacePartition.Quadrant.TOPLEFT].partitions[SpacePartition.Quadrant.BOTTOMLEFT].traversible);
-        //Assert.True(!sp.partitions[SpacePartition.Quadrant.TOPLEFT].partitions[SpacePartition.Quadrant.BOTTOMRIGHT].traversible);
+        Assert.True(!sp.partitions[SpacePartition.Quadrant.TOPLEFT].partitions[SpacePartition.Quadrant.BOTTOMRIGHT].traversible);
 
         // top right
         Assert.True(sp.partitions[SpacePartition.Quadrant.TOPRIGHT].traversible);
         Assert.True(sp.partitions[SpacePartition.Quadrant.TOPRIGHT].partitions[SpacePartition.Quadrant.TOPLEFT].traversible);
         Assert.True(sp.partitions[SpacePartition.Quadrant.TOPRIGHT].partitions[SpacePartition.Quadrant.TOPRIGHT].traversible);
-        //Assert.True(!sp.partitions[SpacePartition.Quadrant.TOPRIGHT].partitions[SpacePartition.Quadrant.BOTTOMLEFT].traversible);
+        Assert.True(!sp.partitions[SpacePartition.Quadrant.TOPRIGHT].partitions[SpacePartition.Quadrant.BOTTOMLEFT].traversible);
         Assert.True(sp.partitions[SpacePartition.Quadrant.TOPRIGHT].partitions[SpacePartition.Quadrant.BOTTOMRIGHT].traversible);
 
         // bot left
@@ -363,7 +363,7 @@ public class UnitTest1
         Assert.True(sp.partitions[SpacePartition.Quadrant.BOTTOMLEFT].partitions[SpacePartition.Quadrant.TOPLEFT].traversible);
         Assert.True(sp.partitions[SpacePartition.Quadrant.BOTTOMLEFT].partitions[SpacePartition.Quadrant.TOPRIGHT].traversible);
         Assert.True(sp.partitions[SpacePartition.Quadrant.BOTTOMLEFT].partitions[SpacePartition.Quadrant.BOTTOMLEFT].traversible);
-        //Assert.True(!sp.partitions[SpacePartition.Quadrant.BOTTOMLEFT].partitions[SpacePartition.Quadrant.BOTTOMRIGHT].traversible);
+        Assert.True(!sp.partitions[SpacePartition.Quadrant.BOTTOMLEFT].partitions[SpacePartition.Quadrant.BOTTOMRIGHT].traversible);
 
         // bot right
         Assert.True(!sp.partitions[SpacePartition.Quadrant.BOTTOMRIGHT].traversible);
