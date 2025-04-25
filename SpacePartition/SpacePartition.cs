@@ -28,12 +28,14 @@ public class SpacePartition
     // Only going to have TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT here
     public Dictionary<Quadrant, SpacePartition> partitions;
     private SpacePartition parent;
-    public SpacePartition(int xOrigin, int yOrigin, int width, int height, SpacePartition parent)
+    private Random rand;
+    public SpacePartition(int xOrigin, int yOrigin, int width, int height, Random random, SpacePartition parent)
     {
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
         this.width = width;
         this.height = height;
+        rand = random;
         this.partitions = new Dictionary<Quadrant, SpacePartition>();
     }
 
@@ -146,7 +148,7 @@ public class SpacePartition
         // we have already subdivded twice
         if (depth > 1)
         {
-            bool becomeLeaf = Random.Shared.Next(0, 4) < 1;
+            bool becomeLeaf = rand.Next(0, 4) < 1;
 
             if (becomeLeaf)
             {
@@ -163,22 +165,22 @@ public class SpacePartition
         int lilHeight = height / 2;
 
         // Top Left
-        SpacePartition tl = new SpacePartition(xOrigin, yOrigin, width / 2, height / 2, this);
+        SpacePartition tl = new SpacePartition(xOrigin, yOrigin, width / 2, height / 2, rand, this);
         tl.Subdivide(depth + 1, minWidth, minHeight);
         partitions.Add(Quadrant.TOPLEFT, tl);
 
         // Top Right
-        SpacePartition tr = new SpacePartition(xOrigin + (width / 2), yOrigin, bigWidth, height / 2, this);
+        SpacePartition tr = new SpacePartition(xOrigin + (width / 2), yOrigin, bigWidth, height / 2, rand, this);
         tr.Subdivide(depth + 1, minWidth, minHeight);
         partitions.Add(Quadrant.TOPRIGHT, tr);
 
         // Bottom Left
-        SpacePartition bl = new SpacePartition(xOrigin, yOrigin + (height / 2), width / 2, bigHeight, this);
+        SpacePartition bl = new SpacePartition(xOrigin, yOrigin + (height / 2), width / 2, bigHeight, rand, this);
         bl.Subdivide(depth + 1, minWidth, minHeight);
         partitions.Add(Quadrant.BOTTOMLEFT, bl);
 
         // Bottom Right
-        SpacePartition br = new SpacePartition(xOrigin + (width / 2), yOrigin + (height / 2), bigWidth, bigHeight, this);
+        SpacePartition br = new SpacePartition(xOrigin + (width / 2), yOrigin + (height / 2), bigWidth, bigHeight, rand, this);
         br.Subdivide(depth + 1, minWidth, minHeight);
         partitions.Add(Quadrant.BOTTOMRIGHT, br);
 
@@ -194,7 +196,7 @@ public class SpacePartition
         // if we are traversible
         if (this.partitions.Count == 0)
         {
-            traversible = Random.Shared.Next(0, 4) == 0;
+            traversible = rand.Next(0, 4) == 0;
             return;
         }
 
