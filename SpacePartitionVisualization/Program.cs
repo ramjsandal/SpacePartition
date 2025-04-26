@@ -9,7 +9,7 @@ public class Program
     {
         // Breaks sometimes depending on rand
         SpacePartition.SpacePartition root = new SpacePartition.SpacePartition(0, 0, 800, 600, new Random(), null);
-        root.Subdivide(0, 14, 14);
+        root.Subdivide(0, 8, 8);
         root.AssignLeafTraversability();
         root.AssignTraversability();
         List<SpacePartition.SpacePartition> partitions = new List<SpacePartition.SpacePartition>();

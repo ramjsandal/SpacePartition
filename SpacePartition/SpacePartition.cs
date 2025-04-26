@@ -216,7 +216,7 @@ public class SpacePartition
         // if we are traversible
         if (this.partitions.Count == 0)
         {
-            traversible = rand.Next(0, 4) == 0;
+            traversible = rand.Next(0, 8) == 0;
             return;
         }
 
