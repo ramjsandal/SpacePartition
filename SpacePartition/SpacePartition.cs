@@ -37,6 +37,7 @@ public class SpacePartition
         this.height = height;
         rand = random;
         this.partitions = new Dictionary<Quadrant, SpacePartition>();
+        this.parent = parent;
     }
 
     public bool ContainsCoordinate(int x, int y)
@@ -254,7 +255,8 @@ public class SpacePartition
 
             // if we have traversible cells, grab our siblings
             // who are traversible and adjacent
-            List<(Quadrant, SpacePartition)> adj = GetAdjacentSiblings(partition.Key).Where(a => a.Item2.traversible).ToList();
+            // PROBLEM, somethimes we needa connect diagonal cells
+            List<(Quadrant, SpacePartition)> adj = GetSiblings(partition.Key).Where(a => a.Item2.traversible).ToList();
 
 
             foreach (var part in adj)
@@ -318,6 +320,10 @@ public class SpacePartition
             {
                 getLeaf = other.GetLeafAt(current.xOrigin + current.width + 1, current.yOrigin);
             }
+            if (getLeaf == null)
+            {
+                getLeaf = this.parent.GetLeafAt(current.xOrigin + current.width + 1, current.yOrigin);
+            }
 
             current = getLeaf;
             cellsToTunnel.Add(current);
@@ -330,6 +336,10 @@ public class SpacePartition
             if (getLeaf == null)
             {
                 getLeaf = other.GetLeafAt(current.xOrigin, current.yOrigin + current.height + 1);
+            }
+            if (getLeaf == null)
+            {
+                getLeaf = this.parent.GetLeafAt(current.xOrigin, current.yOrigin + current.height + 1);
             }
 
             current = getLeaf;
@@ -393,6 +403,38 @@ public class SpacePartition
         }
         return result;
     }
+
+    private List<(Quadrant, SpacePartition)> GetSiblings(Quadrant quad)
+    {
+        List<(Quadrant, SpacePartition)> result = new List<(Quadrant, SpacePartition)>();
+
+        switch (quad)
+        {
+            case Quadrant.TOPRIGHT:
+                result.Add((Quadrant.TOPLEFT, partitions[Quadrant.TOPLEFT]));
+                result.Add((Quadrant.BOTTOMRIGHT, partitions[Quadrant.BOTTOMRIGHT]));
+                result.Add((Quadrant.BOTTOMLEFT, partitions[Quadrant.BOTTOMLEFT]));
+                break;
+            case Quadrant.TOPLEFT:
+                result.Add((Quadrant.TOPRIGHT, partitions[Quadrant.TOPRIGHT]));
+                result.Add((Quadrant.BOTTOMLEFT, partitions[Quadrant.BOTTOMLEFT]));
+                result.Add((Quadrant.BOTTOMRIGHT, partitions[Quadrant.BOTTOMRIGHT]));
+                break;
+            case Quadrant.BOTTOMLEFT:
+                result.Add((Quadrant.TOPLEFT, partitions[Quadrant.TOPLEFT]));
+                result.Add((Quadrant.TOPRIGHT, partitions[Quadrant.TOPRIGHT]));
+                result.Add((Quadrant.BOTTOMRIGHT, partitions[Quadrant.BOTTOMRIGHT]));
+                break;
+            case Quadrant.BOTTOMRIGHT:
+                result.Add((Quadrant.TOPRIGHT, partitions[Quadrant.TOPRIGHT]));
+                result.Add((Quadrant.TOPLEFT, partitions[Quadrant.TOPLEFT]));
+                result.Add((Quadrant.BOTTOMLEFT, partitions[Quadrant.BOTTOMLEFT]));
+                break;
+        }
+        return result;
+    }
+
+
 
     public void GetAllLeaves(ref List<SpacePartition> prevList)
     {
