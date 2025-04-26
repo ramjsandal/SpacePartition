@@ -113,47 +113,6 @@ public class SpacePartition
         return ret;
     }
 
-    public List<SpacePartition> GetAllSubpartitionsOnEdge(Direction direction)
-    {
-
-        // Base case, if were a leaf return us
-        if (this.partitions.Count == 0)
-        {
-            return new List<SpacePartition>() { this };
-        }
-
-        // Get partitions we care about
-        List<SpacePartition> recur = new List<SpacePartition>();
-        switch (direction)
-        {
-            case Direction.TOP:
-                recur.Add(this.partitions[Quadrant.TOPRIGHT]);
-                recur.Add(this.partitions[Quadrant.TOPLEFT]);
-                break;
-            case Direction.BOTTOM:
-                recur.Add(this.partitions[Quadrant.BOTTOMLEFT]);
-                recur.Add(this.partitions[Quadrant.BOTTOMRIGHT]);
-                break;
-            case Direction.RIGHT:
-                recur.Add(this.partitions[Quadrant.TOPRIGHT]);
-                recur.Add(this.partitions[Quadrant.BOTTOMRIGHT]);
-                break;
-            case Direction.LEFT:
-                recur.Add(this.partitions[Quadrant.BOTTOMLEFT]);
-                recur.Add(this.partitions[Quadrant.TOPLEFT]);
-                break;
-        }
-
-        // recur on each of these partitions and return result
-        List<SpacePartition> ret = new List<SpacePartition>();
-        foreach (SpacePartition partition in recur)
-        {
-            ret.Concat(partition.GetAllSubpartitionsOnEdge(direction));
-        }
-
-        return ret;
-    }
-
     // Called on our root node, we subdivide ourselves
     // down to leaves
     public void Subdivide(int depth, int minWidth, int minHeight)
