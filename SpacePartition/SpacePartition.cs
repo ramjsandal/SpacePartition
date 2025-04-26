@@ -63,6 +63,28 @@ public class SpacePartition
             child.MakeLeafTraversable(leaf);
         }
     }
+
+    public SpacePartition GetRoot()
+    {
+        SpacePartition root = this;
+        while (root.parent != null)
+        {
+            root = root.parent;
+        }
+
+        return root;
+    }
+    SpacePartition? GetGlobalLeafAt(int x, int y)
+    {
+        // Get root node
+        SpacePartition root = this;
+        while (root.parent != null)
+        {
+            root = root.parent;
+        }
+
+        return root.GetLeafAt(x, y);
+    }
     SpacePartition? GetLeafAt(int x, int y)
     {
         if (!ContainsCoordinate(x, y))
@@ -86,7 +108,7 @@ public class SpacePartition
         bool ret = (this.Equals(sp));
         foreach (var partition in partitions.Values)
         {
-            ret = ret || partition.Equals(sp);
+            ret = ret || partition.ContainsCell(sp);
         }
         return ret;
     }
@@ -315,35 +337,41 @@ public class SpacePartition
         SpacePartition current = start;
         while (current != null && current.xOrigin < end.xOrigin)
         {
-            SpacePartition? getLeaf = this.GetLeafAt(current.xOrigin + current.width + 1, current.yOrigin);
-            if (getLeaf == null)
-            {
-                getLeaf = other.GetLeafAt(current.xOrigin + current.width + 1, current.yOrigin);
-            }
-            if (getLeaf == null)
-            {
-                getLeaf = this.parent.GetLeafAt(current.xOrigin + current.width + 1, current.yOrigin);
-            }
-
+            SpacePartition? getLeaf = this.GetGlobalLeafAt(current.xOrigin + current.width + 1, current.yOrigin);
             current = getLeaf;
-            cellsToTunnel.Add(current);
+            if (getLeaf != null)
+            {
+                cellsToTunnel.Add(current);
+            }
         }
 
-        // Now lets tunnel down
-        while (current != null && current.yOrigin < end.yOrigin)
+        // Now lets tunnel down or up
+        if (current != null && current.yOrigin < end.yOrigin)
         {
-            SpacePartition? getLeaf = this.GetLeafAt(current.xOrigin, current.yOrigin + current.height + 1);
-            if (getLeaf == null)
+            while (current != null && current.yOrigin < end.yOrigin)
             {
-                getLeaf = other.GetLeafAt(current.xOrigin, current.yOrigin + current.height + 1);
-            }
-            if (getLeaf == null)
-            {
-                getLeaf = this.parent.GetLeafAt(current.xOrigin, current.yOrigin + current.height + 1);
-            }
+                SpacePartition? getLeaf = this.GetGlobalLeafAt(current.xOrigin, current.yOrigin + current.height + 1);
+                current = getLeaf;
+                if (getLeaf != null)
+                {
+                    cellsToTunnel.Add(current);
+                }
 
-            current = getLeaf;
-            cellsToTunnel.Add(current);
+            }
+        }
+        else if (current != null && current.yOrigin > end.yOrigin)
+        {
+            while (current != null && current.yOrigin > end.yOrigin)
+            {
+                SpacePartition? getLeaf = this.GetGlobalLeafAt(current.xOrigin, current.yOrigin - 1);
+                current = getLeaf;
+                if (getLeaf != null)
+                {
+                    cellsToTunnel.Add(current);
+                }
+
+
+            }
         }
 
         // Ok now we should have all of the cells that we want to make sure are
@@ -352,16 +380,10 @@ public class SpacePartition
         // (like an idiot!!!)
         // will fix later if im not lazy 
         // (i am !!!!)
+        SpacePartition root = GetRoot();
         foreach (var cell in cellsToTunnel)
         {
-            if (this.ContainsCell(cell))
-            {
-                this.MakeLeafTraversable(cell);
-            }
-            else if (other.ContainsCell(cell))
-            {
-                other.MakeLeafTraversable(cell);
-            }
+            root.MakeLeafTraversable(cell);
 
         }
 
