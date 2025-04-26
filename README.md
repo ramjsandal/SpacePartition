@@ -1,6 +1,6 @@
 # Space Partition for Level Generation
 
-## WIP
+![spacePartition](https://github.com/user-attachments/assets/007b6c64-83ba-4cf1-8ea4-fa4798b4ce7e)
 
 ## What is this project?
 
