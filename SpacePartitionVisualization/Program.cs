@@ -7,8 +7,9 @@ public class Program
 
     public static void Main()
     {
-        SpacePartition.SpacePartition root = new SpacePartition.SpacePartition(0, 0, 800, 600, new Random(1), null);
+        SpacePartition.SpacePartition root = new SpacePartition.SpacePartition(0, 0, 800, 600, new Random(3), null);
         root.Subdivide(0, 100, 100);
+        root.AssignLeafTraversability();
         root.AssignTraversability();
         List<SpacePartition.SpacePartition> partitions = new List<SpacePartition.SpacePartition>();
         root.GetAllLeaves(ref partitions);

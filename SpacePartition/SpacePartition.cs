@@ -186,17 +186,37 @@ public class SpacePartition
 
     }
 
-    // Assuming we have divided our tree, assign traversability
-    // such that we maintain overall traversability
-    public void AssignTraversability()
+    public void AssignLeafTraversability()
     {
-
         // Base Case
         // if were a leaf we randomly choose
         // if we are traversible
         if (this.partitions.Count == 0)
         {
             traversible = rand.Next(0, 4) == 0;
+            return;
+        }
+
+        // Split / Recur
+        foreach (var partition in partitions)
+        {
+            // since were not a leaf,
+            // recur on our children and 
+            // assign their traversability
+            partition.Value.AssignLeafTraversability();
+        }
+
+    }
+
+    // Assuming we have divided our tree, assign traversability
+    // such that we maintain overall traversability
+    public void AssignTraversability()
+    {
+
+        // Base Case
+        // if were a leaf we stop
+        if (this.partitions.Count == 0)
+        {
             return;
         }
 
@@ -240,6 +260,8 @@ public class SpacePartition
             foreach (var part in adj)
             {
                 var before = partition;
+                // TUNNEL NOT DOING ITS JOB HERE
+                // everything seems to get here ok though
                 SpacePartition edited = partition.Value.Tunnel(part.Item2);
                 var after = partition;
                 this.partitions[part.Item1] = edited;
@@ -263,6 +285,9 @@ public class SpacePartition
         List<SpacePartition> otherLeaves = new List<SpacePartition>();
         GetAllLeaves(ref ourLeaves);
         other.GetAllLeaves(ref otherLeaves);
+        ourLeaves = ourLeaves.Where(a => a.traversible).ToList();
+        otherLeaves = otherLeaves.Where(a => a.traversible).ToList();
+
         int minDist = int.MaxValue;
         (SpacePartition, SpacePartition) bestPair = (null, null);
 

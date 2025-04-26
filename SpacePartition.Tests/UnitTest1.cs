@@ -1,4 +1,6 @@
 ﻿namespace SpacePartition.Tests;
+
+using System.Diagnostics;
 using Xunit;
 
 public class UnitTest1
@@ -131,6 +133,36 @@ public class UnitTest1
 
 
         return sp;
+    }
+
+    public SpacePartition CreateSubdivision()
+    {
+        SpacePartition root = new SpacePartition(0, 0, 800, 600, new Random(1), null);
+        root.Subdivide(0, 100, 100);
+        root.AssignLeafTraversability();
+        root.PrintLeaves();
+
+        Console.WriteLine("~~~~\n\n\n");
+        Console.WriteLine("\n\n\n~~~~");
+
+        /*
+        // THIS DOES NOTHING
+        root.AssignTraversability();
+        root.PrintLeaves();
+
+        Console.WriteLine("~~~~\n\n\n");
+        Console.WriteLine("\n\n\n~~~~");
+
+        root.MergeTrees();
+        root.PrintLeaves();
+        */
+
+        return root;
+    }
+    [Fact]
+    public void AssignLeafTravTest()
+    {
+        CreateSubdivision();
     }
 
     [Fact]
