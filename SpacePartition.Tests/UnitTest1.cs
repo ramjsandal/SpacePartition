@@ -5,11 +5,12 @@ public class UnitTest1
 {
     public SpacePartition CreatePartition()
     {
-        SpacePartition sp = new SpacePartition(0, 0, 800, 600, null);
-        SpacePartition topLeft = new SpacePartition(0, 0, 400, 300, sp);
-        SpacePartition topRight = new SpacePartition(400, 0, 400, 300, sp);
-        SpacePartition bottomLeft = new SpacePartition(0, 300, 400, 300, sp);
-        SpacePartition bottomRight = new SpacePartition(400, 300, 400, 300, sp);
+        Random rand = new Random(1);
+        SpacePartition sp = new SpacePartition(0, 0, 800, 600, rand, null);
+        SpacePartition topLeft = new SpacePartition(0, 0, 400, 300, rand, sp);
+        SpacePartition topRight = new SpacePartition(400, 400, 400, 300, rand, sp);
+        SpacePartition bottomLeft = new SpacePartition(0, 300, 400, 300, rand, sp);
+        SpacePartition bottomRight = new SpacePartition(400, 300, 400, 300, rand, sp);
 
         sp.partitions.Add(SpacePartition.Quadrant.TOPLEFT, topLeft);
         sp.partitions.Add(SpacePartition.Quadrant.TOPRIGHT, topRight);
@@ -87,34 +88,36 @@ public class UnitTest1
 
     public SpacePartition CreateComplexPartition()
     {
-        SpacePartition sp = new SpacePartition(0, 0, 800, 600, null);
-        SpacePartition topLeft = new SpacePartition(0, 0, 400, 300, sp);
-        SpacePartition topRight = new SpacePartition(400, 0, 400, 300, sp);
-        SpacePartition bottomLeft = new SpacePartition(0, 300, 400, 300, sp);
-        SpacePartition bottomRight = new SpacePartition(400, 300, 400, 300, sp);
+        Random rand = new Random(1);
 
-        SpacePartition tltl = new SpacePartition(0, 0, 200, 150, topLeft);
-        SpacePartition tltr = new SpacePartition(200, 0, 200, 150, topLeft);
-        SpacePartition tlbl = new SpacePartition(0, 150, 200, 150, topLeft);
-        SpacePartition tlbr = new SpacePartition(200, 150, 200, 150, topLeft);
+        SpacePartition sp = new SpacePartition(0, 0, 800, 600, rand, null);
+        SpacePartition topLeft = new SpacePartition(0, 0, 400, 300, rand, sp);
+        SpacePartition topRight = new SpacePartition(400, 0, 400, 300, rand, sp);
+        SpacePartition bottomLeft = new SpacePartition(0, 300, 400, 300, rand, sp);
+        SpacePartition bottomRight = new SpacePartition(400, 300, 400, 300, rand, sp);
+
+        SpacePartition tltl = new SpacePartition(0, 0, 200, 150, rand, topLeft);
+        SpacePartition tltr = new SpacePartition(200, 0, 200, 150, rand, topLeft);
+        SpacePartition tlbl = new SpacePartition(0, 150, 200, 150, rand, topLeft);
+        SpacePartition tlbr = new SpacePartition(200, 150, 200, 150, rand, topLeft);
         topLeft.partitions.Add(SpacePartition.Quadrant.TOPLEFT, tltl);
         topLeft.partitions.Add(SpacePartition.Quadrant.TOPRIGHT, tltr);
         topLeft.partitions.Add(SpacePartition.Quadrant.BOTTOMLEFT, tlbl);
         topLeft.partitions.Add(SpacePartition.Quadrant.BOTTOMRIGHT, tlbr);
 
-        SpacePartition trtl = new SpacePartition(400, 0, 200, 150, topRight);
-        SpacePartition trtr = new SpacePartition(600, 0, 200, 150, topRight);
-        SpacePartition trbl = new SpacePartition(400, 150, 200, 150, topRight);
-        SpacePartition trbr = new SpacePartition(600, 150, 200, 150, topRight);
+        SpacePartition trtl = new SpacePartition(400, 0, 200, 150, rand, topRight);
+        SpacePartition trtr = new SpacePartition(600, 0, 200, 150, rand, topRight);
+        SpacePartition trbl = new SpacePartition(400, 150, 200, 150, rand, topRight);
+        SpacePartition trbr = new SpacePartition(600, 150, 200, 150, rand, topRight);
         topRight.partitions.Add(SpacePartition.Quadrant.TOPLEFT, trtl);
         topRight.partitions.Add(SpacePartition.Quadrant.TOPRIGHT, trtr);
         topRight.partitions.Add(SpacePartition.Quadrant.BOTTOMLEFT, trbl);
         topRight.partitions.Add(SpacePartition.Quadrant.BOTTOMRIGHT, trbr);
 
-        SpacePartition bltl = new SpacePartition(0, 300, 200, 150, bottomLeft);
-        SpacePartition bltr = new SpacePartition(200, 300, 200, 150, bottomLeft);
-        SpacePartition blbl = new SpacePartition(0, 450, 200, 150, bottomLeft);
-        SpacePartition blbr = new SpacePartition(200, 450, 200, 150, bottomLeft);
+        SpacePartition bltl = new SpacePartition(0, 300, 200, 150, rand, bottomLeft);
+        SpacePartition bltr = new SpacePartition(200, 300, 200, 150, rand, bottomLeft);
+        SpacePartition blbl = new SpacePartition(0, 450, 200, 150, rand, bottomLeft);
+        SpacePartition blbr = new SpacePartition(200, 450, 200, 150, rand, bottomLeft);
         bottomLeft.partitions.Add(SpacePartition.Quadrant.TOPLEFT, bltl);
         bottomLeft.partitions.Add(SpacePartition.Quadrant.TOPRIGHT, bltr);
         bottomLeft.partitions.Add(SpacePartition.Quadrant.BOTTOMLEFT, blbl);
@@ -133,11 +136,12 @@ public class UnitTest1
     [Fact]
     public void CreateSpacePartitionsTest()
     {
-        SpacePartition sp = new SpacePartition(0, 0, 800, 600, null);
-        SpacePartition topLeft = new SpacePartition(0, 0, 400, 300, sp);
-        SpacePartition topRight = new SpacePartition(400, 0, 400, 300, sp);
-        SpacePartition bottomLeft = new SpacePartition(0, 300, 400, 300, sp);
-        SpacePartition bottomRight = new SpacePartition(400, 300, 400, 300, sp);
+        Random rand = new Random(1);
+        SpacePartition sp = new SpacePartition(0, 0, 800, 600, rand, null);
+        SpacePartition topLeft = new SpacePartition(0, 0, 400, 300, rand, sp);
+        SpacePartition topRight = new SpacePartition(400, 0, 400, 300, rand, sp);
+        SpacePartition bottomLeft = new SpacePartition(0, 300, 400, 300, rand, sp);
+        SpacePartition bottomRight = new SpacePartition(400, 300, 400, 300, rand, sp);
 
         sp.partitions.Add(SpacePartition.Quadrant.TOPLEFT, topLeft);
         sp.partitions.Add(SpacePartition.Quadrant.TOPRIGHT, topRight);
